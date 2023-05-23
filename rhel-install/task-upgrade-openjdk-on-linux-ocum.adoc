@@ -1,0 +1,63 @@
+---
+permalink: rhel-install/task-upgrade-openjdk-on-linux-ocum.html 
+sidebar: sidebar 
+keywords: oncommand, workflow, automation, upgrade, jre, linux 
+summary: 'È possibile eseguire l"aggiornamento a una versione più recente di Java Runtime Environment (JRE) sul server Linux su cui è installato OnCommand Workflow Automation per ottenere correzioni per le vulnerabilità della sicurezza.' 
+---
+= Aggiorna JRE su Linux
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+È possibile eseguire l'aggiornamento a una versione più recente di Java Runtime Environment (JRE) sul server Linux su cui è installato OnCommand Workflow Automation per ottenere correzioni per le vulnerabilità della sicurezza.
+
+.Di cosa hai bisogno
+È necessario disporre dei privilegi di root per il sistema Linux su cui è installato WFA.
+
+
+NOTE: È possibile eseguire l'aggiornamento da un aggiornamento di JRE 1.8 a un aggiornamento successivo di JRE 1.8. Non è possibile eseguire l'aggiornamento a una versione successiva di JRE come Java 9. Ad esempio, non è possibile eseguire l'aggiornamento da Java 8 update 144 (64 bit) a Java 8 update 151 (64 bit) o da Java 8 a Java 9.
+
+.Fasi
+. Accedere come utente root sul computer host WFA.
+. Scaricare la versione appropriata di Java (64 bit) nel sistema di destinazione.
+. Prima di aggiornare JRE, eseguire i seguenti comandi per elencare le chiavi di crittografia e di licenza per WFA:
++
+`/opt/netapp/wfa/bin/wfa -K`
+
++
+In questo modo viene restituita la chiave di crittografia, ad esempio:
+
++
+`Key: oidMG6GbIuHjdZG30JgFng==`
+
++
+`/opt/netapp/wfa/bin/wfa --license`
+
++
+Questo restituisce la chiave di licenza, ad esempio:
+
++
+`Key: MS8xLzIwOTkgMTE6NTkgUE0=`
+
++
+Salvare queste chiavi nel modo in cui sono necessarie per la riconfigurazione delle chiavi durante l'aggiornamento di JRE.
+
+. Arrestare i servizi WFA:
++
+`service wfa-server stop`
+
+. Installare l'ultima versione di JRE sul sistema.
+. Per aggiornare JRE, riconfigurare le chiavi salvate nella fase 3 utilizzando i seguenti comandi:
++
+`/opt/netapp/wfa/bin/wfa --license=MS8xLzIwOTkgMTE6NTkgUE0=`
+
++
+`/opt/netapp/wfa/bin/wfa -K=oidMG6GbIuHjdZG30JgFng==`
+
+. Avviare i servizi WFA:
++
+`service wfa-server start`
+
+

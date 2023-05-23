@@ -1,0 +1,43 @@
+---
+permalink: windows-install/task-configure-snmp.html 
+sidebar: sidebar 
+keywords: configure, snmp 
+summary: 'È possibile configurare OnCommand Workflow Automation (Wfa) per inviare trap SNMP (Simple Network Management Protocol) sullo stato delle operazioni del flusso di lavoro.' 
+---
+= Configurare SNMP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+È possibile configurare OnCommand Workflow Automation (Wfa) per inviare trap SNMP (Simple Network Management Protocol) sullo stato delle operazioni del flusso di lavoro.
+
+.A proposito di questa attività
+Il WFA `.mib` Il file fornisce informazioni sui trap inviati dal server WFA. Il `.mib` il file si trova in `<WFA_install_location>\wfa\bin\wfa.mib` Directory sul server WFA.
+
+
+NOTE: Il server WFA invia tutte le notifiche trap con un identificatore di oggetto generico (1.3.6.1.4.1.789.1.1.12.0).
+
+Non è possibile utilizzare stringhe di comunità SNMP come _community_string@SNMP_host_ per la configurazione SNMP.
+
+.Fasi
+. Accedere a WFA tramite un browser Web come utente amministratore, quindi accedere al server WFA.
+. Fare clic su *Settings* (Impostazioni) e in *Setup* (Configurazione) fare clic su *SNMP*.
+. Selezionare la casella di controllo *Enable SNMP* (attiva SNMP).
+. Inserire un indirizzo IPv4 o IPv6 o il nome host e il numero di porta dell'host di gestione.
++
+WFA invia i trap SNMP al numero di porta specificato. Il numero di porta predefinito è 162.
+
+. Nella sezione *notifica on*, selezionare una o più delle seguenti caselle di controllo:
++
+** Esecuzione del flusso di lavoro avviata
+** Esecuzione del flusso di lavoro completata correttamente
+** Esecuzione del flusso di lavoro non riuscita/parzialmente riuscita
+** Esecuzione del workflow in attesa di approvazione
+** Errore di acquisizione
+
+
+. Fare clic su *Send Test Notification* (Invia notifica test) per verificare le impostazioni.
+. Fare clic su *Save* (Salva).
+

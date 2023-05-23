@@ -1,0 +1,45 @@
+---
+permalink: windows-install/task-upgrade-jre-on-windows-wfa.html 
+sidebar: sidebar 
+keywords: oncommand workflow automation, upgrade, jre 
+summary: 'È possibile aggiornare le nuove versioni di Java Runtime Environment (JRE) a OnCommand Workflow Automation (WFA) sul server Windows. È possibile eseguire l"aggiornamento a una versione più recente di JRE per ottenere correzioni per le vulnerabilità di sicurezza sul server Windows.' 
+---
+= Aggiornare JRE
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+È possibile aggiornare le nuove versioni di Java Runtime Environment (JRE) a OnCommand Workflow Automation (WFA) sul server Windows. È possibile eseguire l'aggiornamento a una versione più recente di JRE per ottenere correzioni per le vulnerabilità di sicurezza sul server Windows.
+
+.Di cosa hai bisogno
+È necessario disporre dei privilegi di amministratore di Windows sul server WFA.
+
+.A proposito di questa attività
+È possibile aggiornare le release JRE all'interno delle famiglie di release. Ad esempio, è possibile eseguire l'aggiornamento da Java 8 update 144 (64 bit) a Java 8 update 151 (64 bit), ma non è possibile eseguire l'aggiornamento direttamente da Java 8 a Java 9.
+
+.Fasi
+. Accedere come utente amministratore sul computer host WFA.
+. Scaricare e installare la versione più recente di Java 8 a 64 bit dal sito Oracle sul sistema di destinazione.
+. Utilizzare la console dei servizi Windows per arrestare i seguenti servizi WFA:
++
+** Database NetApp WFA o MYSQL57
+** Server NetApp WFA
+
+
+. Fare clic su `updateWFARegistry.vbs` dal `<installdir>\WFA\bin\` Percorso per aggiornare la versione più recente di JRE nel registro WFA.
++
+*Esempio*
+
++
+[listing]
+----
+C:\Program Files\NetApp\WFA\bin>cscript.exe
+updateWFARegistry.vbs
+Microsoft (R) Windows Script Host Version 5.8
+Copyright (C) Microsoft Corporation. All rights reserved
+C:\Program Files\NetApp\WFA\bin>
+----
+. Avviare i servizi WFA utilizzando la console dei servizi Windows.
+

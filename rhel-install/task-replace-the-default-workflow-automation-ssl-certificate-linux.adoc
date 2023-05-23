@@ -1,0 +1,69 @@
+---
+permalink: rhel-install/task-replace-the-default-workflow-automation-ssl-certificate-linux.html 
+sidebar: sidebar 
+keywords: replace, default, workflow automation, ssl, certificate 
+summary: 'È possibile sostituire il certificato SSL predefinito di Workflow Automation (WFA) se il certificato è scaduto o se si desidera aumentare il periodo di validità del certificato.' 
+---
+= Sostituire il certificato SSL predefinito di Workflow Automation
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+È possibile sostituire il certificato SSL predefinito di Workflow Automation (WFA) se il certificato è scaduto o se si desidera aumentare il periodo di validità del certificato.
+
+.Di cosa hai bisogno
+È necessario disporre dei privilegi di root per il sistema Linux su cui è stato installato WFA.
+
+.A proposito di questa attività
+In questa procedura viene utilizzato il percorso di installazione predefinito di WFA. Se è stata modificata la posizione predefinita durante l'installazione, è necessario utilizzare il percorso di installazione WFA personalizzato.
+
+.Fasi
+. Accedere come utente root sul computer host WFA.
+. Al prompt della shell, accedere alla seguente directory sul server WFA:
++
+`WFA_install_location/wfa/bin`
+
+. Arrestare i servizi del server e del database WFA:
++
+`./wfa --stop=WFA`
+
++
+`./wfa --stop=DB`
+
+. Eliminare `wfa.keystore` file dalla seguente posizione: `WFA_install_location/wfa/jboss/standalone/configuration/keystore.`
+. Aprire un prompt della shell sul server WFA, quindi modificare le directory nel seguente percorso:
++
+`WFA_install_location/wfa/jre/bin`
+
+. Ottenere la chiave del database:
++
+`keytool -keysize 2048 -genkey -alias "ssl keystore" -keyalg RSA -keystore "WFA_install_location/wfa/jboss/standalone/configuration/keystore/wfa.keystore" -validity xxxx`
+
++
+`xxxx` indica il numero di giorni di validità del nuovo certificato.
+
+. Quando richiesto, inserire la password (predefinita o nuova).
++
+`changeit` è la password predefinita. Se non si desidera utilizzare la password predefinita, è necessario modificare l'attributo password dell'elemento SSL in `standalone-full.xml` file dalla seguente posizione: `WFA_install_location/wfa/jboss/standalone/configuration`
+
++
+*Esempio*
+
++
+[listing]
+----
+<ssl name="ssl" password="new_password" certificate-key-file="${jboss.server.config.dir}/keystore/wfa.keystore"
+----
+. Inserire i dettagli richiesti per il certificato.
+. Esaminare le informazioni visualizzate, quindi immettere `Yes`.
+. Premere *Invio* quando richiesto dal seguente messaggio: `Enter key password for <SSL keystore> <RETURN if same as keystore password>.`
+. Riavviare i servizi WFA:
++
+`./wfa --start=DB`
+
++
+`./wfa --start=WFA`
+
+

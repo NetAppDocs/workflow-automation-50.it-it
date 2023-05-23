@@ -1,0 +1,62 @@
+---
+permalink: windows-install/task-upgrade-from-oncommand-workflow-automation-3-1-or-later-on-windows.html 
+sidebar: sidebar 
+keywords: oncommand workflow automation, upgrade, versions, later 
+summary: 'È possibile eseguire un aggiornamento in-place da OnCommand Workflow Automation (WFA) 3.1 o versioni successive alle ultime versioni disponibili di WFA per utilizzare le nuove funzionalità e i miglioramenti.' 
+---
+= Eseguire l'aggiornamento da OnCommand Workflow Automation 3.1 o versioni successive
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+È possibile eseguire un aggiornamento in-place da OnCommand Workflow Automation (WFA) 3.1 o versioni successive alle ultime versioni disponibili di WFA per utilizzare le nuove funzionalità e i miglioramenti.
+
+.Di cosa hai bisogno
+È necessario aver scaricato `.exe` File binario dal NetApp Support Site al computer host WFA.
+
+.A proposito di questa attività
+Non è possibile installare MySQL da solo quando si esegue l'aggiornamento da versioni precedenti di WFA. Tuttavia, puoi installare MySQL da solo:
+
+* Durante una nuova installazione di WFA 4.2 e versioni successive oppure
+* Quando si esegue l'aggiornamento da WFA 4.2 a versioni successive di WFA.
+
+
+.Fase
+. Eseguire l'aggiornamento da WFA 3.1 o versioni successive scegliendo uno dei seguenti metodi:
++
+** Installazione interattiva
++
+... Passare a. `.exe` File binario nel computer host WFA, quindi eseguire il file.
+... Seguire le istruzioni visualizzate nella procedura guidata per completare l'aggiornamento.
+
+
+** Installazione invisibile all'utente
++
+Al prompt dei comandi, immettere quanto segue:
+
++
+`WFA-version_number-build_number.exe /s /v"WFA_ADMIN_USERNAME_UP=wfa username WFA_ADMIN_PASSWORD_UP=password /qr /l*v C:\upgrade.log"`
+
++
+*Esempio*:
+
++
+`WFA-x64-v4.2.0.0.0-B2973881.exe /s /v"WFA_ADMIN_USERNAME_UP=admin WFA_ADMIN_PASSWORD_UP=password*123 /qr /l*v C:\upgrade.log"`
+
++
+
+NOTE: Il `/qn` L'opzione non è supportata da WFA.
+
++
+Se si desidera eseguire un aggiornamento invisibile all'utente, è necessario includere i valori per tutti i parametri del comando:
+
++
+*** _WFA_ADMIN_USERNAME_UP_ è il nome utente di un utente WFA autorizzato a creare un backup del database WFA.
+*** _WFA_ADMIN_PASSWORD_UP_ è la password dell'utente.
+
+
+
+
+

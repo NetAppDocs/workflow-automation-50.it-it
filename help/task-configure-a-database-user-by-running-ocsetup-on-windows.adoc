@@ -1,0 +1,49 @@
+---
+permalink: help/task-configure-a-database-user-by-running-ocsetup-on-windows.html 
+sidebar: sidebar 
+keywords: configure, database, user, running, ocsetup, windows 
+summary: 'È possibile eseguire il file ocsetup sul server di Unified Manager di OnCommand per configurare l"accesso in sola lettura del database di Unified Manager di OnCommand a OnCommand Workflow Automation.' 
+---
+= Configurare un utente di database eseguendo ocsetup su Windows
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+È possibile eseguire `ocsetup` Sul server di gestione unificata di OnCommand per configurare l'accesso in sola lettura del database di gestione unificata di OnCommand a OnCommand Workflow Automation.
+
+.Fasi
+. Scaricare il `wfa_ocsetup.exe` File in una directory del server di gestione unificata di OnCommand dalla seguente posizione:
++
+_Https:_//WFA_Server_IP/download/wfa_ocsetup.exe.
+
++
+`WFA_Server_IP` È l'indirizzo IP (indirizzo IPv4 o IPv6) del server WFA.
+
++
+Se è stata specificata una porta non predefinita per WFA, è necessario includere il numero della porta come segue:
+
++
+_https:_//wfa_server_ip:port/download/wfa_ocsetup.exe.
+
++
+`port` È il numero di porta TCP utilizzato per il server WFA durante l'installazione.
+
++
+Se si specifica un indirizzo IPv6, è necessario racchiuderlo tra parentesi quadre.
+
+. Fare doppio clic su `wfa_ocsetup.exe` file.
+. Leggere le informazioni nella procedura di installazione guidata e fare clic su *Avanti*.
+. Cercare o digitare la posizione JRE e fare clic su *Avanti*.
+. Immettere un nome utente e una password per ignorare le credenziali predefinite.
++
+Viene creato un nuovo account utente del database con accesso al database di Unified Manager di OnCommand.
+
++
+
+NOTE: Se non si crea un account utente, vengono utilizzate le credenziali predefinite. Per motivi di sicurezza, è necessario creare un account utente.
+
+. Fare clic su *Avanti* e rivedere i risultati.
+. Fare clic su *Avanti*, quindi su *fine* per completare la procedura guidata.
+

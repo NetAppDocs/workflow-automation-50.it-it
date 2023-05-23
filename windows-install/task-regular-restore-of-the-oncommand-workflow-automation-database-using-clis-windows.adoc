@@ -1,0 +1,43 @@
+---
+permalink: windows-install/task-regular-restore-of-the-oncommand-workflow-automation-database-using-clis-windows.html 
+sidebar: sidebar 
+keywords: oncommand workflow automation, restore, regular, wfa, database, cli 
+summary: 'È possibile eseguire un ripristino regolare del database OnCommand Workflow Automation (WFA) utilizzando le API REST. In un ripristino regolare, è possibile eseguire il backup solo del database WFA.' 
+---
+= Ripristinare (regolarmente) il database WFA utilizzando la CLI
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+È possibile eseguire un ripristino regolare del database OnCommand Workflow Automation (WFA) utilizzando le API REST. In un ripristino regolare, è possibile eseguire il backup solo del database WFA.
+
+.Di cosa hai bisogno
+* È necessario aver creato un backup del database WFA.
+* È necessario disporre di credenziali di amministratore, di credenziali di architetto o di credenziali utente di backup.
+
+
+.Fasi
+. Al prompt della shell, accedere alla seguente directory sul server WFA:
++
+`WFA_install_location\WFA\bin`
+
++
+`wfa_install_location` È la directory di installazione di WFA.
+
+. Eseguire l'operazione di ripristino:
++
+`wfa.cmd --restore --user=user_name [--password=password] [--location=path]`
+
++
+** _nome_utente_ è il nome utente dell'utente admin o architect.
+** _password_ è la password dell'utente.
++
+Se la password non è stata fornita, è necessario immetterla quando richiesto.
+
+** _path_ è il percorso completo della directory del file di ripristino.
+
+
+. Verificare che l'operazione di ripristino sia riuscita e che WFA sia accessibile.
+

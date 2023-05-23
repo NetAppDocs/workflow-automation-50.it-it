@@ -1,0 +1,71 @@
+---
+permalink: rhel-install/task-create-a-certificate-signing-request-for-workflow-automation-linux.html 
+sidebar: sidebar 
+keywords: workflow automation, wfa, linux, create, signing, request 
+summary: 'È possibile creare una richiesta di firma del certificato (CSR) in Linux in modo da poter utilizzare il certificato SSL firmato da un"autorità di certificazione (CA) invece del certificato SSL predefinito per Workflow Automation (Wfa).' 
+---
+= Creare una richiesta di firma del certificato per Workflow Automation
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+È possibile creare una richiesta di firma del certificato (CSR) in Linux in modo da poter utilizzare il certificato SSL firmato da un'autorità di certificazione (CA) invece del certificato SSL predefinito per Workflow Automation (Wfa).
+
+.Di cosa hai bisogno
+* È necessario disporre dei privilegi di root per il sistema Linux su cui è stato installato WFA.
+* È necessario sostituire il certificato SSL predefinito fornito da WFA.
+
+
+.A proposito di questa attività
+In questa procedura viene utilizzato il percorso di installazione predefinito di WFA. Se il percorso predefinito è stato modificato durante l'installazione, è necessario utilizzare il percorso di installazione WFA personalizzato.
+
+.Fasi
+. Accedere come utente root sul computer host WFA.
+. Aprire un prompt della shell sul server WFA, quindi modificare le directory nel seguente percorso:
++
+`WFA_install_location/wfa/jre/bin`
+
+. Creare un file CSR:
++
+`keytool -certreq -keystore WFA_install_location/wfa/jboss/standalone/configuration/keystore/wfa.keystore -alias "ssl keystore" -file /root/file_name.csr`
+
++
+_Nome_file_ è il nome del file CSR.
+
+. Quando richiesto, inserire la password (predefinita o nuova).
++
+*changeit* è la password predefinita. Se non si desidera utilizzare la password predefinita, è necessario modificare l'attributo password dell'elemento SSL in `standalone-full.xml` dal `WFA_install_location/wfa/jboss/standalone/configuration` posizione.
+
++
+*Esempio*
+
++
+[listing]
+----
+<ssl name="ssl" password="new_password" certificate-key-file="${jboss.server.config.dir}/keystore/wfa.keystore"
+----
+. Inviare il file _nome_file.csr_ alla CA per ottenere un certificato firmato.
++
+Per ulteriori informazioni, visitare il sito Web della CA.
+
+. Scarica un certificato di catena dalla CA, quindi importa il certificato di catena nel keystore:
++
+`keytool -import -alias "ssl keystore CA certificate" -keystore WFA_install_location/wfa/jboss/standalone/configuration/keystore/wfa.keystore" -trustcacerts -file C:\chain_cert.cer`
+
++
+`C:\chain_cert.cer` È il file di certificato di catena ricevuto dalla CA. Il file deve essere in formato X.509.
+
+. Importare il certificato firmato ricevuto dalla CA: `keytool -import -alias "ssl keystore" -keystore WFA_install_location/wfa/jboss/standalone/configuration/keystore/wfa.keystore" -trustcacerts -file C:\certificate.cer`
++
+`C:\certificate.cer` È il file di certificato di catena ricevuto dalla CA.
+
+. Avviare i servizi WFA:
++
+`./wfa --start=DB`
+
++
+`./wfa --start=WFA`
+
+

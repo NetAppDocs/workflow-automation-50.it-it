@@ -1,0 +1,14 @@
+---
+permalink: rhel-install/reference-configuring-a-database-user-on-datafabric-manager.html 
+sidebar: sidebar 
+keywords: configure, database, user, active iq, data center manager 
+summary: 'Per configurare l"accesso in sola lettura del database di gestione dei data center di Active IQ a OnCommand Workflow Automation, è necessario creare un utente di database sulle versioni precedenti alla 6.0 di Active IQ.' 
+---
+= Configurazione di un utente di database in Gestione data center Active IQ
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Per configurare l'accesso in sola lettura del database di gestione dei data center di Active IQ a OnCommand Workflow Automation, è necessario creare un utente di database sulle versioni precedenti alla 6.0 di Active IQ.

@@ -1,0 +1,55 @@
+---
+permalink: windows-install/task-replace-the-default-workflow-automation-ssl-certificate.html 
+sidebar: sidebar 
+keywords: replace, default, workflow, automation, ssl, certificate 
+summary: 'È possibile sostituire il certificato SSL predefinito di Workflow Automation (WFA) se il certificato è scaduto o se si desidera aumentare il periodo di validità del certificato.' 
+---
+= Sostituire il certificato SSL predefinito di Workflow Automation
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+È possibile sostituire il certificato SSL predefinito di Workflow Automation (WFA) se il certificato è scaduto o se si desidera aumentare il periodo di validità del certificato.
+
+.Di cosa hai bisogno
+È necessario disporre dei privilegi di amministratore di Windows sul server WFA.
+
+.A proposito di questa attività
+In questa procedura viene utilizzato il percorso di installazione predefinito di WFA. Se è stata modificata la posizione predefinita durante l'installazione, è necessario utilizzare il percorso di installazione WFA personalizzato.
+
+.Fasi
+. Accedere come utente amministratore sul computer host WFA.
+. Utilizzare la console dei servizi Windows per arrestare i seguenti servizi WFA:
++
+** Database NetApp WFA
+** Server NetApp WFA
+
+
+. Eliminare `wfa.keystore` file dalla seguente posizione: `<WFA_install_location>\WFA\jboss\standalone\configuration\keystore`
+. Aprire un prompt dei comandi sul server WFA e modificare le directory nella posizione seguente:
++
+`<WFA_install_location>\WFA\jre\bin`
+
+. Ottenere la chiave del database: `keytool -keysize 2048 -genkey -alias "ssl keystore" -keyalg RSA -keystore "<WFA_install_location>\WFA\jboss\standalone\configuration\keystore\wfa.keystore" -validity xxxx`
++
+`xxxx` indica il numero di giorni di validità del nuovo certificato.
+
+. Quando richiesto, inserire la password (predefinita o nuova).
++
+`changeit` è la password predefinita. Se non si desidera utilizzare la password predefinita, è necessario modificare l'attributo password dell'elemento SSL in `standalone-full.xml` file dalla seguente posizione: `<WFA_install_location>\WFA\jboss\standalone\configuration\`
+
++
+*Esempio*
+
++
+[listing]
+----
+<ssl name="ssl" password="new_password" certificate-key-file="${jboss.server.config.dir}/keystore/wfa.keystore"
+----
+. Inserire i dettagli richiesti per il certificato.
+. Esaminare le informazioni visualizzate e immettere `Yes`.
+. Premere *Invio* quando richiesto dal seguente messaggio: `Enter key password for <SSL keystore> <RETURN if same as keystore password>.`
+. Riavviare i servizi WFA utilizzando la console dei servizi Windows.
+

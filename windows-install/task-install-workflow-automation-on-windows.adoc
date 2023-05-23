@@ -1,0 +1,191 @@
+---
+permalink: windows-install/task-install-workflow-automation-on-windows.html 
+sidebar: sidebar 
+keywords: oncommand workflow automation, install, windows 
+summary: 'È possibile installare OnCommand Workflow Automation (Wfa) per creare e personalizzare i flussi di lavoro dello storage per automatizzare le attività di storage eseguite nell"ambiente.' 
+---
+= Installare OnCommand Workflow Automation su Windows
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+È possibile installare OnCommand Workflow Automation (Wfa) per creare e personalizzare i flussi di lavoro dello storage per automatizzare le attività di storage eseguite nell'ambiente.
+
+.Di cosa hai bisogno
+* È necessario aver esaminato i prerequisiti di installazione.
++
+xref:reference-prerequisites-for-installing-workflow-automation.adoc[Prerequisiti per l'installazione di Workflow Automation]
+
+* Se si installa WFA su un sistema in cui WFA è stato precedentemente installato e quindi disinstallato, è necessario assicurarsi che non vi siano servizi WFA su tale sistema.
+* È necessario aver scaricato il programma di installazione WFA dal sito del supporto NetApp.
+* È necessario disattivare `Auto upgrade` Funzionalità di Java.
+
+
+.A proposito di questa attività
+* Se si installa WFA su una macchina virtuale (VM), il nome della macchina virtuale non deve includere il carattere di sottolineatura (_).
+* ActiveState ActivePerl viene installato prima dell'installazione di WFA.
++
+Questa installazione non interessa altre istanze di ActivePerl installate sul server WFA.
+
+* Prima di reinstallare WFA 4.2 o versioni successive, è necessario eliminare la directory dei dati MySQL se MySQL è stato disinstallato.
+* Se installi MySQL da solo, WFA imposta il `secure-file-privilege` e a. `sql-mode` Proprietà in MySQL `my.ini` file vuoto.
+
+
+.Fasi
+. Accedere a Windows utilizzando un account con autorizzazioni amministrative.
+. Aprire Esplora risorse, quindi passare alla directory in cui si trova il file di installazione.
+. Installare WFA:
++
+** Installazione interattiva
++
+... Fare clic con il pulsante destro del mouse ed eseguire l'eseguibile del programma di installazione WFA (`.exe`) come utente amministratore.
+... Fare clic su *Avanti*.
+... Immettere le credenziali per l'utente amministratore predefinito, quindi fare clic su *Avanti*.
++
+La password admin predefinita deve soddisfare i seguenti criteri:
+
++
+**** Minimo sei caratteri
+**** Un carattere maiuscolo
+**** Un carattere minuscolo
+**** Un numero
+**** Un carattere speciale *Nota:* è necessario annotare le credenziali dell'utente amministratore.
+
+
+... Selezionare le porte per la configurazione WFA, quindi fare clic su *Avanti*.
+... Immettere il nome di un sito e la società, quindi fare clic su *Avanti*.
++
+Il nome del sito può includere la posizione dell'installazione WFA, ad esempio Pittsburgh, PA.
+
+... Se si desidera modificare il percorso di installazione predefinito, selezionare il percorso in cui si desidera installare WFA, quindi fare clic su *Avanti*.
+... Se non si desidera modificare la posizione predefinita del database WFA, fare clic su *Avanti*.
+... Fare clic su *Installa* per continuare l'installazione.
+... Fare clic su *fine* per completare l'installazione.
+... Verificare che WFA sia stato installato correttamente scegliendo una delle seguenti azioni:
++
+**** Accedere a WFA tramite un browser Web.
+**** Utilizzare la console dei servizi Windows per verificare che il servizio NetApp WFA Server e il servizio NetApp WFA Database siano in esecuzione.
+
+
+
+
+** Installazione automatica (dal prompt dei comandi): +
+`WFA-version_number-build_number.exe /s /v"WFA_ADMIN_USERNAME=wfa_username WFA_ADMIN_PASSWORD=password WFA_ADMIN_CONFIRM_PASSWORD=confirm admin password / WFA_MYSQL_PASS=password CONFIRM_WFA_MYSQL_PASS=confirm MySQL password WFA_INSTALL_SITE=site WFA_INSTALL_ORGANIZATION=organization_name WFA_HTTP_PORT=port WFA_HTTPS_PORT=port INSTALLDIR=install_directory DATABASEDIR=database_directory /qr /l*v C:\install.log"`
++
+*Esempio*
+
++
+`WFA-x64-v4.2.0.0.0-B2973881.exe /s /v"WFA_ADMIN_USERNAME=admin WFA_ADMIN_PASSWORD=Company*234 WFA_ADMIN_CONFIRM_PASSWORD=Company*234 WFA_MYSQL_PASS=MySQL*234 CONFIRM_WFA_MYSQL_PASS=MySQL*234 WFA_INSTALL_SITE=nb WFA_INSTALL_ORGANIZATION=netapp WFA_HTTP_PORT=9090 WFA_HTTPS_PORT=8443 INSTALLDIR=\"C:\Program Files\NetApp\WFA\" DATABASEDIR=\"C:\Program Files\NetApp\WFA\Database\" /qr /l*v C:\install.log"`
+
++
+
+NOTE: Il `/qn` L'opzione non è supportata da WFA.
+
++
+I parametri dei comandi sono i seguenti:
+
++
+[cols="2*"]
+|===
+| Parametro | Descrizione 
+
+
+ a| 
+_WFA_ADMIN_USERNAME_
+ a| 
+Nome utente amministratore
+
+Parametro facoltativo. Se non si specifica un valore, viene utilizzato il valore predefinito admin.
+
+
+
+ a| 
+_WFA_ADMIN_PASSWORD_
+ a| 
+Password utente amministratore
+
+Parametro obbligatorio. La password admin predefinita deve soddisfare i seguenti criteri:
+
+*** Minimo sei caratteri
+*** Un carattere maiuscolo
+*** Un carattere minuscolo
+*** Un numero
+*** Un carattere speciale
+
+
+
+
+ a| 
+_WFA_ADMIN_CONFIRM_PASSWORD_
+ a| 
+Password utente amministratore
+
+Parametro obbligatorio
+
+
+
+ a| 
+_WFA_MYSQL_PASS_
+ a| 
+Password utente MySQL
+
+Parametro obbligatorio
+
+
+
+ a| 
+_CONFIRM_WFA_MYSQL_PASS_
+ a| 
+Password utente MySQL
+
+Parametro obbligatorio
+
+
+
+ a| 
+_SITO_INSTALLAZIONE_WFA_
+ a| 
+Unità organizzativa in cui viene installato il parametro obbligatorio WFA
+
+
+
+ a| 
+_WFA_INSTALL_ORGANIZATION_
+ a| 
+Nome dell'organizzazione o della società in cui viene installato WFA
+
+Parametro obbligatorio
+
+
+
+ a| 
+_PORTA_HTTP_WFA_
+ a| 
+Porta HTTP parametro opzionale. Se non si specifica un valore, viene utilizzato il valore predefinito 80.
+
+
+
+ a| 
+_PORTA_HTTPS_WFA_
+ a| 
+Porta HTTPS parametro opzionale. Se non si specifica un valore, viene utilizzato il valore predefinito 443.
+
+
+
+ a| 
+_INSTALLDIR_
+ a| 
+Percorso della directory di installazione
+
+Parametro facoltativo. Se non si specifica un valore, il percorso predefinito `"C:\Program Files\NetApp\WFA\"` viene utilizzato.
+
+|===
+
+
+
+
+*Informazioni correlate*
+
+http://mysupport.netapp.com["Supporto NetApp"]
